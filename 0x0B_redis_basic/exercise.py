@@ -22,3 +22,21 @@ class Cache():
         self._redis.mset({key: data})
 
         return key
+
+    def get(self, key: str, fn: Optional[Callable] = None) -> Union[
+            str, bytes, int, float]:
+        """method that take a key string and an optional Callable"""
+
+        if fn:
+            return fn(self._redis.get(key))
+        return self._redis.get(key)
+
+    def get_str(self, data: str) -> str:
+        """return a string correct conversion"""
+
+        return self._redis.get(data).decode('utf-8')
+
+    def get_int(self, data: str) -> int:
+        """return a int correct conversion"""
+
+        return int(self._redis.get(data))
