@@ -31,4 +31,8 @@ class LRUCache(BaseCaching):
     def get(self, key):
         """Return the value linked to the key"""
 
+        if key in self.cache_data:
+            self.least.remove(key)
+            self.least.append(key)
+
         return self.cache_data.get(key)
