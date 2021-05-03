@@ -14,12 +14,14 @@ def access_counter(method: Callable) -> Callable:
     def count_and_expirate(*args, **kwds):
         """count_and_expirate wrapped function"""
         r = redis.Redis()
-        url = r.get(args[0])
-        r.incr('count:' + url)
-        if not url:
-            url = method(*args, **kwds)
-            r.setex(args[0], 10, url)
-        return url
+        r.incr('count:' + args[0])
+        url_val = r.get(args[0])
+
+        if not url_val:
+            url_val = method(*args, **kwds)
+            r.setex(args[0], 10, url_val)
+
+        return url_val
 
     return count_and_expirate
 
