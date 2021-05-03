@@ -22,7 +22,7 @@ def count_calls(method: Callable) -> Callable:
 
 
 def call_history(method: Callable) -> Callable:
-    """store the history of inputs and outputs for a particular function"""
+    """Store the history of inputs and outputs for a particular function"""
 
     @wraps(method)
     def output(self, *args, **kwds):
@@ -33,6 +33,22 @@ def call_history(method: Callable) -> Callable:
         return out
 
     return output
+
+
+def replay(method: Callable):
+    """Display the history of calls of a particular function"""
+    r = redis.Redis()
+    method_name = method.__qualname__
+
+    count = r.get(method_name).decode('utf-8')
+    inputs = r.lrange(method_name + ':inputs', 0, -1)
+    outputs = r.lrange(method_name + ':outputs', 0, -1)
+
+    print('{} was called {} times:'.format(method_name, count))
+
+    for inp, out in zip(inputs, outputs):
+        print('{}(*{}) -> {}'.format(
+            method_name, inp.decode('utf-8'), out.decode('utf-8')))
 
 
 class Cache():
