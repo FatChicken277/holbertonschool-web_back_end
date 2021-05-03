@@ -2,8 +2,8 @@
 """exercise module"""
 
 import redis
-import typing
 import uuid
+from typing import Any
 
 
 class Cache():
@@ -15,7 +15,7 @@ class Cache():
         self._redis = redis.Redis()
         self._redis.flushdb()
 
-    def store(self, data) -> str:
+    def store(self, data: Any) -> str:
         """generate a random key and store in redis"""
 
         key = str(uuid.uuid4())
