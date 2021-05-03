@@ -15,12 +15,10 @@ def access_counter(method: Callable) -> Callable:
         """count_and_expirate wrapped function"""
         r = redis.Redis()
         url = r.get(args[0])
-
+        r.incr('count:' + url)
         if not url:
             url = method(*args, **kwds)
             r.setex(args[0], 10, url)
-
-        r.incr('count:' + url)
         return url
 
     return count_and_expirate
