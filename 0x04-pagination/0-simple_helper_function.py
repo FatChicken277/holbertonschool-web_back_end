@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 """
 0-simple_helper_function.py - This module contains index_range method.
 """
