@@ -12,7 +12,9 @@ try {
 }
 
 try {
+  /* eslint-disable no-unused-vars */
   const c2 = new HolbertonCourse('ES6', '1', ['Bob', 'Jane']);
+  /* eslint-enable no-unused-vars */
 } catch (err) {
   console.log(err);
 }
