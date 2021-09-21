@@ -6,7 +6,7 @@ export default function cleanSet(set, startString) {
   }
 
   set.forEach((key) => {
-    if (key.startsWith(startString)) {
+    if (key && key.startsWith(startString)) {
       result.push(key.substr(startString.length));
     }
   });
