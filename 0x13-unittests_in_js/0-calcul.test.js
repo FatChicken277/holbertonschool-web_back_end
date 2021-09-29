@@ -2,8 +2,8 @@ const assert = require('assert');
 
 const calculateNumber = require('./0-calcul');
 
-describe('calculateNumber', () => {
-  it('should return the sum of 2 numbers', () => {
+describe('calculateNumber', function () {
+  it('should return the sum of 2 numbers', function () {
     assert.strictEqual(calculateNumber(1, 3), 4);
     assert.strictEqual(calculateNumber(1, 3.7), 5);
     assert.strictEqual(calculateNumber(1.2, 3.7), 5);
