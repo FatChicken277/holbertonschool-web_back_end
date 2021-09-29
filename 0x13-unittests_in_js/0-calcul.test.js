@@ -12,5 +12,6 @@ describe('calculateNumber', () => {
     assert.strictEqual(calculateNumber(-1, -3), -4);
     assert.strictEqual(calculateNumber(-1.7, 3), 1);
     assert.strictEqual(calculateNumber(-1.2, -3.5), -4);
+    assert.strictEqual(calculateNumber(0.2, 0.5), 1);
   });
 });
