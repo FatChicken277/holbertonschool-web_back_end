@@ -22,4 +22,8 @@ describe('calculateNumber', function () {
     assert.strictEqual(calculateNumber(-1.7, 3), 1);
     assert.strictEqual(calculateNumber(-1.2, -3.5), -4);
   });
+
+  it('should return the sum of 2 strings', function () {
+    assert.strictEqual(calculateNumber('-1.7', '3'), 1);
+  });
 });
