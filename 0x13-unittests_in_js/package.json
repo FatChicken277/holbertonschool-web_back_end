@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "./node_modules/.bin/eslint",
     "check-lint": "npm run lint [0-9]*.js",
-    "test": "./node_modules/mocha/bin/mocha --require esm ."
+    "test": "./node_modules/mocha/bin/mocha --require esm"
   },
   "author": "",
   "license": "ISC",
