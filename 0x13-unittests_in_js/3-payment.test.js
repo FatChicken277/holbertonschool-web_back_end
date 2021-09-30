@@ -4,26 +4,21 @@ const Utils = require('./utils');
 const sendPaymentRequestToApi = require('./3-payment');
 
 describe('sendPaymentRequestToApi', function () {
-  let requestSpy;
-  before(function () {
-    requestSpy = spy(Utils, 'calculateNumber');
-  });
-
-  after(function () {
-    requestSpy.restore();
-  });
-
   it('should send payment request', function () {
-    sendPaymentRequestToApi(100, 20);
-    expect(requestSpy.calledOnce);
-    expect(requestSpy.args[0][0]).to.equal('SUM');
-    expect(requestSpy.args[0][1]).to.equal(100);
-    expect(requestSpy.args[0][2]).to.equal(20);
-  });
+    const calculateNumberSpy = spy(Utils, 'calculateNumber');
+    const consoleSpy = spy(console, 'log');
 
-  it('should return the same', function () {
-    sendPaymentRequestToApi(100, 20);
-    expect(requestSpy.calledOnce);
-    expect(requestSpy.returnValues[0]).to.equal(120);
+    const request = sendPaymentRequestToApi(100, 20);
+
+    expect(calculateNumberSpy.calledOnce);
+    expect(calculateNumberSpy.calledOnceWithExactly('SUM', 100, 20)).to.equal(true);
+
+    expect(consoleSpy.calledWithExactly('The total is: 120')).to.equal(true);
+
+    expect(calculateNumberSpy.returnValues[0]).to.equal(120);
+    expect(Utils.calculateNumber('SUM', 100, 20)).to.equal(request);
+
+    calculateNumberSpy.restore();
+    consoleSpy.restore();
   });
 });
