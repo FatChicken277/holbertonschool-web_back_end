@@ -4,9 +4,9 @@ const Utils = require('./utils');
 const sendPaymentRequestToApi = require('./3-payment');
 
 describe('sendPaymentRequestToApi', function () {
-  it('should send payment request', function () {
-    const calculateNumberSpy = spy(Utils, 'calculateNumber');
+  const calculateNumberSpy = spy(Utils, 'calculateNumber');
 
+  it('should send payment request', function () {
     sendPaymentRequestToApi(100, 20);
 
     expect(calculateNumberSpy.calledOnce);
