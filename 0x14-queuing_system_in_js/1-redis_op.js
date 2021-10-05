@@ -13,8 +13,8 @@ import * as redis from 'redis';
     console.log('Redis client not connected to the server:', err.message);
   });
 
-  async function setNewSchool(schoolName, value) {
-    await client.set(schoolName, value, redis.print);
+  function setNewSchool(schoolName, value) {
+    client.set(schoolName, value, redis.print);
   }
 
   async function displaySchoolValue(schoolName) {
