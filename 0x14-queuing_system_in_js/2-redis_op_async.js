@@ -1,32 +1,28 @@
-import * as redis from 'redis';
+import redis from 'redis';
+import { promisify } from 'util';
 
-// no need to use promisify, according to documentation https://github.com/NodeRedis/node-redis
+const client = redis.createClient();
+const asyncGet = promisify(client.get).bind(client);
 
-(async () => {
-  const client = redis.createClient();
+client.on('connect', () => {
+  // eslint-disable-next-line no-console
+  console.log('Redis client connected to the server');
+});
 
-  client.on('connect', () => {
-    // eslint-disable-next-line no-console
-    console.log('Redis client connected to the server');
-  });
+client.on('error', (err) => {
+  // eslint-disable-next-line no-console
+  console.log('Redis client not connected to the server:', err.message);
+});
 
-  client.on('error', (err) => {
-    // eslint-disable-next-line no-console
-    console.log('Redis client not connected to the server:', err.message);
-  });
+function setNewSchool(schoolName, value) {
+  client.set(schoolName, value, redis.print);
+}
 
-  function setNewSchool(schoolName, value) {
-    client.set(schoolName, value, redis.print);
-  }
+async function displaySchoolValue(schoolName) {
+  // eslint-disable-next-line no-console
+  console.log(await asyncGet(schoolName));
+}
 
-  async function displaySchoolValue(schoolName) {
-    // eslint-disable-next-line no-console
-    console.log(await client.get(schoolName));
-  }
-
-  await client.connect();
-
-  displaySchoolValue('Holberton');
-  setNewSchool('HolbertonSanFrancisco', '100');
-  displaySchoolValue('HolbertonSanFrancisco');
-})();
+displaySchoolValue('Holberton');
+setNewSchool('HolbertonSanFrancisco', '100');
+displaySchoolValue('HolbertonSanFrancisco');
