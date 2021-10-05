@@ -61,17 +61,17 @@ function NewJob(data) {
 
   job.on('complete', () => {
     // eslint-disable-next-line no-console
-    console.log(`Notification job ${job.id} completed`);
+    console.log(`Notification job #${job.id} completed`);
   });
 
   job.on('failed', (errorMessage) => {
     // eslint-disable-next-line no-console
-    console.log(`Notification job ${job.id} failed: ${errorMessage}`);
+    console.log(`Notification job #${job.id} failed: ${errorMessage}`);
   });
 
   job.on('progress', (progress) => {
     // eslint-disable-next-line no-console
-    console.log(`Notification job ${job.id} ${progress}% complete`);
+    console.log(`Notification job #${job.id} ${progress}% complete`);
   });
 }
 
